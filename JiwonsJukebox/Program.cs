@@ -1,8 +1,10 @@
 ﻿using Discord;
 using Discord.Commands;
+using Discord.Net;
 using Discord.WebSocket;
 using JiwonsJukebox.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace JiwonsJukebox
 {
@@ -30,7 +32,7 @@ namespace JiwonsJukebox
             _client = new DiscordSocketClient(new DiscordSocketConfig() { GatewayIntents = GatewayIntents.All })
             {
             };
-
+            
             _commands = new CommandService(new CommandServiceConfig())
             {
             };
@@ -38,6 +40,52 @@ namespace JiwonsJukebox
             // 로그 수신시 로그 출력 함수에서 출력되도록 설정
             _client.Log += OnClientLogReceived;
             _commands.Log += OnClientLogReceived;
+
+            // 슬래시 명령
+            _client.Ready += Client_Ready;
+            _client.SlashCommandExecuted += SlashCommandHandler;
+        }
+
+        private async Task Client_Ready()
+        {
+            var guild = _client.GetGuild(1099630896052715540);
+            // Next, lets create our slash command builder. This is like the embed builder but for slash commands.
+            var guildCommand = new SlashCommandBuilder();
+
+            // Note: Names have to be all lowercase and match the regular expression ^[\w-]{3,32}$
+            guildCommand.WithName("first-command");
+
+            // Descriptions can have a max length of 100.
+            guildCommand.WithDescription("This is my first guild slash command!");
+
+            // Let's do our global command
+            var globalCommand = new SlashCommandBuilder();
+            globalCommand.WithName("first-global-command");
+            globalCommand.WithDescription("This is my first global slash command");
+
+            try
+            {
+                // Now that we have our builder, we can call the CreateApplicationCommandAsync method to make our slash command.
+                await guild.CreateApplicationCommandAsync(guildCommand.Build());
+
+                // With global commands we don't need the guild.
+                await _client.CreateGlobalApplicationCommandAsync(globalCommand.Build());
+                // Using the ready event is a simple implementation for the sake of the example. Suitable for testing and development.
+                // For a production bot, it is recommended to only run the CreateGlobalApplicationCommandAsync() once for each command.
+            }
+            catch (ApplicationCommandException exception)
+            {
+                // If our command was invalid, we should catch an ApplicationCommandException. This exception contains the path of the error as well as the error message. You can serialize the Error field in the exception to get a visual of where your error is.
+                // var json = JsonConvert.SerializeObject(exception.Error, Formatting.Indented);
+
+                // You can send this error somewhere or just print it to the console, for this example we're just going to print it.
+                // Console.WriteLine(json);
+            }
+        }
+
+        private async Task SlashCommandHandler(SocketSlashCommand command)
+        {
+            await command.RespondAsync($"You executed {command.Data.Name}");
 
         }
 
@@ -49,7 +97,7 @@ namespace JiwonsJukebox
             try
             {
                 // 메세지 수신
-                //await InitCommands();
+                await InitCommands();
 
                 // 봇의 토큰을 사용해 서버에 로그인
                 await _client.LoginAsync(TokenType.Bot, _tokenService.Token);
