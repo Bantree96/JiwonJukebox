@@ -8,7 +8,7 @@ namespace JiwonsJukebox
 {
     internal class Program
     {
-        private readonly string _token = "MTA5OTYyNjkyNjU2MzQxNDEzNw.GHpKiR.hpiCgxlUTazEh8eECKPSG1Hra_S7lRjLQOQzF8";
+        private readonly string _token = "MTA5OTYyNjkyNjU2MzQxNDEzNw.Gv2HHG.Gra-OBb6pnqUg5m4eXY0zB893NW-soT2gePltA\r\n";
         // 봇 클라이언트
         private readonly DiscordSocketClient _client;
         // 명령어 수신 클라이언트
@@ -16,6 +16,7 @@ namespace JiwonsJukebox
         private readonly CommandHandler _handler;
         private readonly IServiceProvider _services;
 
+        private TokenService _tokenService = new TokenService();
 
         static void Main(string[] args)
         {
@@ -24,7 +25,8 @@ namespace JiwonsJukebox
 
         public Program()
         {
-         
+
+            
             // * GatewayIntents 필수임.
             _client = new DiscordSocketClient(new DiscordSocketConfig() { GatewayIntents = GatewayIntents.All })
             {
@@ -38,15 +40,6 @@ namespace JiwonsJukebox
             _client.Log += OnClientLogReceived;
             _commands.Log += OnClientLogReceived;
 
-            _services = ConfigureServices();
-        }
-
-        private static IServiceProvider ConfigureServices()
-        {
-            var Conllection = new ServiceCollection()
-                .AddSingleton(new JukeboxService());
-
-            return Conllection.BuildServiceProvider();
         }
 
         /// <summary>
@@ -60,7 +53,7 @@ namespace JiwonsJukebox
                 //await InitCommands();
 
                 // 봇의 토큰을 사용해 서버에 로그인
-                await _client.LoginAsync(TokenType.Bot, _token);
+                await _client.LoginAsync(TokenType.Bot, _tokenService.Token);
 
                 // 봇이 이벤트를 수신하기 시작
                 await _client.StartAsync();
