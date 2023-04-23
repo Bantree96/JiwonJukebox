@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiwonsJukebox", "JiwonsJukebox\JiwonsJukebox.csproj", "{A6CC1CC9-EBE4-4061-A41F-717D6CF1EBAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6CC1CC9-EBE4-4061-A41F-717D6CF1EBAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6CC1CC9-EBE4-4061-A41F-717D6CF1EBAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6CC1CC9-EBE4-4061-A41F-717D6CF1EBAE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A6CC1CC9-EBE4-4061-A41F-717D6CF1EBAE}.Debug|x64.Build.0 = Debug|Any CPU
+		{A6CC1CC9-EBE4-4061-A41F-717D6CF1EBAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6CC1CC9-EBE4-4061-A41F-717D6CF1EBAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6CC1CC9-EBE4-4061-A41F-717D6CF1EBAE}.Release|x64.ActiveCfg = Release|Any CPU
+		{A6CC1CC9-EBE4-4061-A41F-717D6CF1EBAE}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF52C4C8-023B-4907-9691-54D4AFC423F9}
+	EndGlobalSection
+EndGlobal
