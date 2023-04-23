@@ -8,7 +8,6 @@ namespace JiwonsJukebox
 {
     internal class Program
     {
-        private readonly string _token = "MTA5OTYyNjkyNjU2MzQxNDEzNw.Gv2HHG.Gra-OBb6pnqUg5m4eXY0zB893NW-soT2gePltA\r\n";
         // 봇 클라이언트
         private readonly DiscordSocketClient _client;
         // 명령어 수신 클라이언트
